@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#111310">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Fidelidade Monkey">
+<link rel="manifest" href="manifest.json">
+<title>Fidelidade Monkey</title>
+<style>
+:root{--bg:#111310;--panel:#1b1d18;--panel2:#23251f;--text:#f2f2ed;--muted:#a8aa9f;--gold:#d5a52d;--gold2:#f0c34a;--green:#43a66d;--red:#c85b5b;--border:#34372e}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+button,input{font:inherit}.app{max-width:1500px;margin:auto;padding:calc(44px + env(safe-area-inset-top)) 24px 24px}header{display:flex;justify-content:space-between;gap:20px;align-items:center;margin-bottom:22px}.brand h1{margin:0;font-size:28px}.brand p{margin:5px 0 0;color:var(--muted)}.actions{display:flex;gap:8px;flex-wrap:wrap}
+button{border:0;border-radius:10px;padding:11px 15px;cursor:pointer;background:var(--gold);color:#17150e;font-weight:700}button.secondary{background:var(--panel2);color:var(--text);border:1px solid var(--border)}button.danger{background:#482526;color:#ffdcdc;border:1px solid #673638}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}.stat{background:var(--panel);border:1px solid var(--border);border-radius:15px;padding:16px}.stat span{display:block;color:var(--muted);font-size:13px}.stat strong{display:block;font-size:27px;margin-top:5px}
+.toolbar{background:var(--panel);border:1px solid var(--border);border-radius:15px;padding:13px;display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}input{background:#12140f;color:var(--text);border:1px solid var(--border);border-radius:10px;padding:11px 13px;outline:none}input:focus{border-color:var(--gold)}#search{flex:1;min-width:220px}
+.board{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px;align-items:start}.column{background:#171914;border:1px solid var(--border);border-radius:16px;padding:13px;min-height:300px}.column-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.column-head h2{font-size:16px;margin:0}.count{color:var(--muted);font-size:13px}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px}.active{background:var(--gold)}.complete{background:var(--green)}.expired{background:var(--red)}.cards{display:flex;flex-direction:column;gap:10px}
+.card{background:var(--panel2);border:1px solid var(--border);border-radius:14px;padding:14px}.card-top{display:flex;justify-content:space-between;gap:10px}.name{font-size:17px;font-weight:700}.badge{font-size:11px;padding:5px 8px;border-radius:999px;white-space:nowrap}.badge.active{background:#5b4716;color:#ffe39a}.badge.complete{background:#194b32;color:#bdeed0}.badge.expired{background:#512727;color:#ffc4c4}
+.meta{color:var(--muted);font-size:13px;margin-top:8px;line-height:1.55}.progress{height:7px;background:#10110e;border-radius:99px;margin:12px 0 7px;overflow:hidden}.bar{height:100%;background:var(--gold);border-radius:99px}.card-footer{display:flex;justify-content:space-between;align-items:center;gap:8px}.purchase{font-size:13px;color:#ddd}.mini-actions{display:flex;gap:6px}.mini-actions button{padding:7px 9px;font-size:12px}.empty{color:var(--muted);text-align:center;padding:25px 10px;font-size:13px}
+dialog{border:1px solid var(--border);border-radius:16px;background:var(--panel);color:var(--text);width:min(500px,calc(100% - 28px));padding:0}dialog::backdrop{background:rgba(0,0,0,.65)}.modal{padding:20px}.modal h2{margin-top:0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.field{display:flex;flex-direction:column;gap:6px}.field.full{grid-column:1/-1}.field label{font-size:12px;color:var(--muted)}.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}.notice{font-size:12px;color:var(--muted);margin-top:10px;line-height:1.5}
+@media(max-width:900px){.board{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}}@media(max-width:520px){.app{padding:calc(44px + env(safe-area-inset-top)) 14px 14px}.stats{grid-template-columns:1fr 1fr}.grid{grid-template-columns:1fr}.field.full{grid-column:auto}header{align-items:flex-start;flex-direction:column}}
+body{padding-bottom:env(safe-area-inset-bottom)}button,input{min-height:44px}
+@media(max-width:600px){.app{padding:calc(44px + env(safe-area-inset-top)) 12px 12px}header{gap:12px}.brand h1{font-size:23px}.brand p{font-size:13px}.actions{width:100%}.actions button{flex:1}.toolbar{position:sticky;top:0;z-index:5;box-shadow:0 8px 20px rgba(0,0,0,.22)}.toolbar input{width:100%;min-width:0}.board{gap:12px}.column{min-height:180px}.card{padding:13px}.card-top{align-items:flex-start}.name{font-size:16px}.mini-actions{flex-wrap:wrap;justify-content:flex-end}.mini-actions button{min-height:40px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header><div class="brand"><h1>🦍 Fidelidade Monkey</h1><p>Controle simples dos ciclos de fidelidade dos clientes.</p></div>
+<div class="actions"><button onclick="openModal()">+ Novo cliente</button><button class="secondary" onclick="exportData()">Backup JSON</button><button class="secondary" onclick="exportCSV()">Exportar CSV</button><button class="secondary" onclick="document.getElementById('importFile').click()">Importar</button><input id="importFile" type="file" accept=".json" hidden onchange="importData(event)"></div></header>
+<section class="stats"><div class="stat"><span>Clientes ativos</span><strong id="sActive">0</strong></div><div class="stat"><span>Completos</span><strong id="sComplete">0</strong></div><div class="stat"><span>Vencidos</span><strong id="sExpired">0</strong></div><div class="stat"><span>PODs registrados</span><strong id="sPurchases">0</strong></div></section>
+<div class="toolbar"><div style="width:100%;color:#a8aa9f;font-size:12px">💡 Para cadastrar clientes que já existem: clique em <b>Novo cliente</b> e informe a data real da primeira compra. O sistema recalcula os 75 dias automaticamente.</div><input id="search" placeholder="Pesquisar por nome ou telefone..." oninput="render()"><button class="secondary" onclick="document.getElementById('search').value='';render()">Limpar busca</button></div>
+<main class="board">
+<section class="column"><div class="column-head"><h2><span class="dot active"></span>Em andamento</h2><span class="count" id="cActive">0</span></div><div class="cards" id="active"></div></section>
+<section class="column"><div class="column-head"><h2><span class="dot complete"></span>Concluído</h2><span class="count" id="cComplete">0</span></div><div class="cards" id="complete"></div></section>
+<section class="column"><div class="column-head"><h2><span class="dot expired"></span>Vencido</h2><span class="count" id="cExpired">0</span></div><div class="cards" id="expired"></div></section>
+</main></div>
+<dialog id="modal"><form method="dialog" class="modal" onsubmit="saveClient(event)"><h2 id="modalTitle">Novo cliente</h2><div class="grid"><div class="field full"><label>Nome</label><input id="name" required></div><div class="field"><label>Telefone</label><input id="phone" placeholder="(83) 99999-9999"></div><div class="field"><label>Data da 1ª compra / início do ciclo</label><input id="startDate" type="date" required><small style="color:#a8aa9f">Você pode escolher qualquer data — inclusive uma data passada.</small></div><div class="field"><label>PODs comprados</label><input id="purchases" type="number" min="0" max="4" value="0" required></div></div><p class="notice">O sistema calcula automaticamente o vencimento em 75 dias a partir da data informada. <b>A data não fica presa ao dia atual:</b> para clientes antigos, selecione a data real da primeira compra. Com 4 PODs, o ciclo passa para “Concluído”.</p><div class="modal-actions"><button type="button" class="secondary" onclick="closeModal()">Cancelar</button><button type="submit">Salvar</button></div></form></dialog>
+<script>
+const KEY="fidelidade_monkey_v1";
+let clients=JSON.parse(localStorage.getItem(KEY)||"[]");let editingId=null;
+function todayISO(){return new Date().toISOString().slice(0,10)}
+function addDays(dateStr,days){const d=new Date(dateStr+"T12:00:00");d.setDate(d.getDate()+days);return d.toISOString().slice(0,10)}
+function fmt(dateStr){if(!dateStr)return "-";return new Date(dateStr+"T12:00:00").toLocaleDateString("pt-BR")}
+function status(c){if(Number(c.purchases)>=4)return "complete";const expiry=addDays(c.startDate,75);if(todayISO()>expiry)return "expired";return "active"}
+function statusLabel(s){return s==="active"?"Em andamento":s==="complete"?"Concluído":"Vencido"}
+function save(){localStorage.setItem(KEY,JSON.stringify(clients))}
+function escapeHTML(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+function render(){
+ const q=document.getElementById("search").value.toLowerCase().trim();
+ const cols={active:[],complete:[],expired:[]};
+ clients.forEach(c=>{if(q&&!(c.name.toLowerCase().includes(q)||(c.phone||"").toLowerCase().includes(q)))return;cols[status(c)].push(c)});
+ // Em andamento: maior data de vencimento primeiro (quem demora mais para vencer fica no topo).
+ cols.active.sort((a,b)=>addDays(b.startDate,75).localeCompare(addDays(a.startDate,75)));
+ for(const key of Object.keys(cols)){const el=document.getElementById(key);el.innerHTML=cols[key].length?cols[key].map(cardHTML).join(""):'<div class="empty">Nenhum cliente aqui.</div>';document.getElementById("c"+key[0].toUpperCase()+key.slice(1)).textContent=cols[key].length}
+ document.getElementById("sActive").textContent=cols.active.length;document.getElementById("sComplete").textContent=cols.complete.length;document.getElementById("sExpired").textContent=cols.expired.length;document.getElementById("sPurchases").textContent=clients.reduce((n,c)=>n+Number(c.purchases||0),0)
+}
+function cardHTML(c){const s=status(c),p=Math.min(Number(c.purchases),4),expiry=addDays(c.startDate,75);return `<article class="card"><div class="card-top"><div class="name">${escapeHTML(c.name)}</div><span class="badge ${s}">${statusLabel(s)}</span></div><div class="meta">📱 ${escapeHTML(c.phone||"Sem telefone")}<br>📅 Início: ${fmt(c.startDate)}<br>⏳ ${s==="complete"?"Ciclo concluído":s==="expired"?"Venceu em "+fmt(expiry):"Vence em "+fmt(expiry)}</div><div class="progress"><div class="bar" style="width:${p*25}%"></div></div><div class="card-footer"><span class="purchase"><b>${p}/4</b> PODs registrados</span><div class="mini-actions">${s==="active"?`<button title="Registrar POD" onclick="addPurchase('${c.id}')">+ POD</button>`:""}<button class="secondary" onclick="editClient('${c.id}')">Editar</button><button class="danger" onclick="removeClient('${c.id}')">Excluir</button></div></div></article>`}
+function openModal(id=null){editingId=id;document.getElementById("modalTitle").textContent=id?"Editar cliente":"Novo cliente";if(id){const c=clients.find(x=>x.id===id);document.getElementById("name").value=c.name;document.getElementById("phone").value=c.phone||"";document.getElementById("startDate").value=c.startDate;document.getElementById("purchases").value=c.purchases}else{document.getElementById("name").value="";document.getElementById("phone").value="";document.getElementById("startDate").value="";document.getElementById("purchases").value=0}document.getElementById("modal").showModal()}
+function closeModal(){document.getElementById("modal").close()}
+function saveClient(e){e.preventDefault();const data={name:document.getElementById("name").value.trim(),phone:document.getElementById("phone").value.trim(),startDate:document.getElementById("startDate").value,purchases:Math.min(4,Math.max(0,Number(document.getElementById("purchases").value)))};if(editingId){const i=clients.findIndex(c=>c.id===editingId);clients[i]={...clients[i],...data}}else clients.unshift({id:crypto.randomUUID(),...data});save();closeModal();render()}
+function editClient(id){openModal(id)}
+function addPurchase(id){const c=clients.find(x=>x.id===id);if(!c)return;if(c.purchases<4)c.purchases++;save();render()}
+function removeClient(id){const c=clients.find(x=>x.id===id);if(c&&confirm("Excluir o cadastro de "+c.name+"?")){clients=clients.filter(x=>x.id!==id);save();render()}}
+function exportData(){const blob=new Blob([JSON.stringify(clients,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="fidelidade-monkey-backup.json";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500)}
+function exportCSV(){const header=["Nome","Telefone","Data primeira compra","PODs","Status","Vencimento"];const rows=clients.map(c=>[c.name,c.phone||"",c.startDate,c.purchases,statusLabel(status(c)),addDays(c.startDate,75)]);const csv=[header,...rows].map(row=>row.map(v=>`"${String(v??"").replace(/"/g,'""')}"`).join(",")).join("\n");const blob=new Blob(["\ufeff"+csv],{type:"text/csv;charset=utf-8"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="fidelidade-monkey-clientes.csv";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500)}
+function importData(e){const file=e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const data=JSON.parse(reader.result);if(!Array.isArray(data))throw new Error();clients=data;save();render();alert("Backup importado com sucesso.")}catch{alert("Arquivo inválido.")}e.target.value=""};reader.readAsText(file)}
+render();
+</script>
+<script>if("serviceWorker"in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./service-worker.js").catch(()=>{}))}</script>
+</body>
+</html>
