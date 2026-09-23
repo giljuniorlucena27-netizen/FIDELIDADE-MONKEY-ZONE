@@ -1,0 +1,18 @@
+{
+  "name": "Fidelidade Monkey",
+  "short_name": "Monkey",
+  "description": "Controle do Programa de Fidelidade Monkey",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#111310",
+  "theme_color": "#111310",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
